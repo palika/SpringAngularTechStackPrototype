@@ -1,0 +1,259 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>hu.sonrisa.angular</groupId>
+		<artifactId>SpringMVCAngularDemo</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<groupId>hu.sonrisa.angular</groupId>
+	<artifactId>springmvc-angular-ui</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
+
+	<description>
+		The front end of the application.
+	</description>
+	<profiles>
+		<profile>
+			<id>development</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<build>
+				<resources>
+					<resource>
+						<directory>src/env/development/resources</directory>
+					</resource>
+					<resource>
+						<directory>src/main/resources</directory>
+					</resource>
+				</resources>
+			</build>
+			<dependencies>
+
+
+				<dependency>
+					<groupId>net.sf.jxls</groupId>
+					<artifactId>jxls-core</artifactId>
+					<version>0.9.9</version>
+				</dependency>
+			</dependencies>
+		</profile>
+		<profile>
+			<id>production</id>
+			<dependencies>
+				<!-- <dependency> -->
+				<!-- <groupId>hu.sonrisa.angular</groupId> -->
+				<!-- <artifactId>springmvc-angular-core-impl</artifactId> -->
+				<!-- <version>${project.version}</version> -->
+				<!-- </dependency> -->
+			</dependencies>
+		</profile>
+	</profiles>
+	<dependencies>
+		<dependency>
+			<groupId>hu.sonrisa.angular</groupId>
+			<artifactId>springmvc-angular-core</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>hu.sonrisa.angular</groupId>
+			<artifactId>springmvc-angular-core-impl</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-all</artifactId>
+			<version>1.9.0-rc1</version>
+		</dependency>
+
+		<!-- Spring -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${org.springframework.version}</version>
+			<exclusions>
+				<!-- Exclude Commons Logging in favor of SLF4j -->
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${org.springframework.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-core</artifactId>
+			<version>${org.springframework.security-version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+			<version>${org.springframework.security-version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>${org.springframework.security-version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>${org.springframework.version}</version>
+		</dependency>
+
+		<!-- Logging -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${org.slf4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+			<version>${org.slf4j.version}</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>${org.slf4j.version}</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.16</version>
+			<scope>runtime</scope>
+		</dependency>
+
+		<!-- HSQL Dependency -->
+		<dependency>
+			<groupId>org.hsqldb</groupId>
+			<artifactId>hsqldb</artifactId>
+			<version>2.2.8</version>
+		</dependency>
+
+
+		<!-- Jackson JSON Mapper -->
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+			<version>1.9.10</version>
+		</dependency>
+		<!-- These are needed to easily create JSON objects in TestCases -->
+		<dependency>
+	    	<groupId>com.jayway.jsonpath</groupId>
+	    	<artifactId>json-path</artifactId>
+	    	<version>0.8.1</version>
+		</dependency>
+		<dependency>
+	    	<groupId>com.jayway.jsonpath</groupId>
+	    	<artifactId>json-path-assert</artifactId>
+	    	<version>0.8.1</version>
+		</dependency>
+
+		<!-- Servlet -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.5</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>jsp-api</artifactId>
+			<version>2.1</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+		
+		<!-- TEST -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit-version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${org.springframework.version}</version>
+			<scope>test</scope>
+		</dependency>
+		
+	</dependencies>
+	<build>
+<!-- 		<pluginManagement> -->
+			<plugins>
+				<plugin>
+					<groupId>pl.allegro</groupId>
+					<artifactId>grunt-maven-plugin</artifactId>
+					<version>1.2.0</version>
+					<configuration>
+						<!-- relative to src/main/webapp/, default: static -->
+						<jsSourceDirectory>resources/js</jsSourceDirectory>
+						<gruntBuildDirectory>target/grunt/buildDirectory</gruntBuildDirectory>
+						
+
+						<!-- example options usage to get verbose output in logs -->
+						<gruntOptions>
+							<gruntOption>--verbose</gruntOption>
+						</gruntOptions>
+
+						<!-- example options usage to filter variables in given resource -->
+						<!-- <filteredResources> -->
+						<!-- <filteredResource>maven-properties.json</filteredResource> -->
+						<!-- </filteredResources> -->
+
+					</configuration>
+					<executions>
+						<execution>
+							<goals>
+								<goal>create-resources</goal><!-- This Goal moves resources to the gruntBuildDirectory folder -->
+								<goal>npm</goal>
+								<goal>grunt</goal><!-- This goal will execute the Grunt tasks in the gruntFile.js-->
+								<goal>clean</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+<!-- 			      <plugin> -->
+<!-- 			        <groupId>org.jasig.maven</groupId> -->
+<!-- 			        <artifactId>sass-maven-plugin</artifactId> -->
+<!-- 			        <version>1.1.1</version> -->
+<!-- 			        <configuration> -->
+<!-- 			        </configuration> -->
+<!-- 			        <executions> -->
+<!-- 			        	<execution> -->
+<!-- 				        	<goals> -->
+<!-- 				        		<goal>update-stylesheets</goal> -->
+<!-- 				        	</goals> -->
+<!-- 			        	</execution> -->
+<!-- 			        </executions> -->
+<!-- 			      </plugin> -->
+				<plugin>
+					<artifactId>maven-war-plugin</artifactId>
+					<version>2.3</version>
+					<configuration>
+						<warSourceExcludes>jsSourceDirectory/**</warSourceExcludes>
+					</configuration>
+				</plugin>
+			</plugins>
+<!-- 		</pluginManagement> -->
+	</build>
+
+</project>

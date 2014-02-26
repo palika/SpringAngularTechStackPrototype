@@ -1,0 +1,29 @@
+<div class="navbar navbar-default" ng-controller="HeaderCtrl">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			 <a class="navbar-brand" ng-click="home()">Home</a>
+		</div>
+	    <div class="navbar-collapse collapse">
+	        <ul class="nav navbar-nav">
+	            <li><a href="#">NoLoginMenu 1</a></li>
+	            <li><a href="#">NoLoginMenu 2</a></li>
+	        </ul>
+	
+	        <ul class="nav navbar-nav" ng-show="isAuthenticated()">
+	            <li><a href="#">LoginMenu 1</a></li>
+	            <li class="dropdown"ng-show="isAdmin()">
+	                <a id="adminmenu" role="button" class="dropdown-toggle" ng-click="isAdminOpen=!isAdminOpen">Admin<b class="caret"></b></a>
+	                <ul class="dropdown-menu" role="menu" aria-labelledby="adminmenu">
+	                    <li><a tabindex="-1" href="#" ng-click="isAdminOpen=false">Manage Projects</a></li>
+	                    <li><a tabindex="-1" href="#" ng-click="isAdminOpen=false">Manage Users</a></li>
+	                </ul>
+	            </li>
+	        </ul>
+	        <ul class="nav pull-right" ng-show="hasPendingRequests()">
+	            <li class="divider-vertical"></li>
+	            <li><a href="#"><img src="/static/img/spinner.gif"></a></li>
+	        </ul>
+	        <login-toolbar></login-toolbar>
+	    </div>
+    </div>
+</div>

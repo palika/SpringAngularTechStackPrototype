@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+	<!-- Base configuration -->
+	<!-- This is an intentional duplicate to enable @Value annotation defaults -->
+<!-- 	<util:properties id="webstatsProps" -->
+<!-- 		location="file:${user.home}/.ng3/webstats.properties" /> -->
+<!-- 	<context:property-placeholder -->
+<!-- 		location="file:${user.home}/.ng3/webstats.properties" /> -->
+	
+	<!-- Scans the classpath of this application for @Components to deploy as beans -->
+	<context:component-scan base-package="hu.sonrisa" />
+	
+	<!-- Configures the @Controller programming model -->
+	<mvc:annotation-driven />
+	
+	<mvc:view-controller path="/testpage" view-name="index" />
+	<mvc:view-controller path="/" view-name="index" />
+	
+	<mvc:default-servlet-handler />
+	
+	<!-- Resolves view names to protected .jsp resources within the /WEB-INF/views 
+		directory -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/" />
+		<property name="suffix" value=".html" />
+		<property name="order" value="2" />
+	</bean>
+
+</beans>

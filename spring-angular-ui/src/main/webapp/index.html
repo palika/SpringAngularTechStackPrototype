@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+
+	<script type="text/javascript" src="resources/js/vendor/angular/angular.js"></script>
+	<script type="text/javascript" src="resources/js/vendor/angular/angular-route.js"></script>
+	<script type="text/javascript" src="resources/js/vendor/angular-ui/bootstrap/ui-bootstrap-custom-0.1.0-SNAPSHOT.js"></script>
+	<script type="text/javascript" src="resources/js/vendor/jquery/jquery.js"></script>
+
+  <script type="text/javascript" src="resources/js/src/common/security/index.js"></script>
+  
+  <script type="text/javascript" src="resources/js/src/common/security/login/login.js"></script>
+  <script type="text/javascript" src="resources/js/src/common/security/authorization.js"></script>
+  
+  <script type="text/javascript" src="resources/js/src/common/security/security.js"></script>
+  <script type="text/javascript" src="resources/js/src/common/security/securityInterceptors.js"></script>
+  <script type="text/javascript" src="resources/js/src/common/security/securityQueue.js"></script>
+    <script type="text/javascript" src="resources/js/src/app/app.js"></script>
+    <script type="text/javascript" src="resources/js/src/common/security/login/LoginFormController.js"></script>
+    <script type="text/javascript" src="resources/js/src/common/security/login/toolbar.js"></script>
+    
+    <link rel="stylesheet" type="text/css" href="resources/css/bootstrap-sass/bootstrap.css"/>
+</head>
+
+<body ng-controller="AppCtrl">
+	This is the test site
+  <div ng-include="'resources/js/templates/header.tpl.html'"></div>
+<!--   <div ng-include="'notifications.tpl.html'" class="container-fluid" ng-show="notifications.getCurrent().length"></div> -->
+  <div ng-view class="container-fluid"></div>
+</body>
+</html>
