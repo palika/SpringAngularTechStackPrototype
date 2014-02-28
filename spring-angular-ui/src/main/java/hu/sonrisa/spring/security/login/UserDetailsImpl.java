@@ -13,38 +13,47 @@ public class UserDetailsImpl implements UserDetails {
 	
 	private SessionDetails sessionDetails;
 	private MyUser myUser;
+	private String password;
+	private Collection authorities;
 	
-	public UserDetailsImpl( MyUser myUser) {
+	public UserDetailsImpl( MyUser myUser, String password, Collection authorities) {
 		this.myUser = myUser;
+		this.password = password;
+		this.authorities = authorities;
 	}
 	
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		//TODO: Set Role of the user
-		return Arrays.asList(new GrantedAuthorityImpl(""));
+		return this.authorities;
 	}
 	public String getPassword() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.password;
 	}
 	public String getUsername() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.myUser == null?"":this.myUser.getUsername();
 	}
 	public boolean isAccountNonExpired() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 	public boolean isAccountNonLocked() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 	public boolean isCredentialsNonExpired() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 	public boolean isEnabled() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
+	}
+
+	public MyUser getMyUser() {
+		return myUser;
+	}
+
+	public void setMyUser(MyUser myUser) {
+		this.myUser = myUser;
 	}
 
 }

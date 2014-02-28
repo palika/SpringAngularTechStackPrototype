@@ -1,5 +1,6 @@
 package hu.sonrisa.spring.security.controller;
 
+import hu.sonrisa.spring.security.login.UserDetailsImpl;
 import hu.sonrisa.spring.usermanager.domain.MyUser;
 import hu.sonrisa.spring.usermanager.domain.SecurityRoleEntity;
 import hu.sonrisa.spring.usermanager.service.MyUserService;
@@ -25,8 +26,8 @@ public class LoginController {
 	@Qualifier("authenticationManager")
 	AuthenticationManager authenticationManager;
 
-	@Autowired
-	MyUserService myUserService;
+//	@Autowired
+//	MyUserService myUserService;
 
 	@RequestMapping(value = "current-user.json", method = RequestMethod.GET)
 	@ResponseBody
@@ -35,8 +36,9 @@ public class LoginController {
 				.getAuthentication();
 		if (auth != null && !auth.getName().equals("anonymousUser")
 				&& auth.isAuthenticated()) {
+			MyUser user = ((UserDetailsImpl)auth.getPrincipal()).getMyUser();
 			return new LoginStatus(true, auth.getName(),
-					myUserService.findByName(auth.getName()));
+					user);
 		} else {
 			return new LoginStatus(false, null, null);
 		}
@@ -51,8 +53,8 @@ public class LoginController {
 		try {
 			Authentication auth = authenticationManager.authenticate(token);
 			SecurityContextHolder.getContext().setAuthentication(auth);
-			MyUser user = myUserService.findByName(auth.getName());
-			return new LoginStatus(auth.isAuthenticated(), auth.getName(),
+			MyUser user = ((UserDetailsImpl)auth.getPrincipal()).getMyUser();
+			return new LoginStatus(auth.isAuthenticated(), user.getUsername(),
 					user);
 		} catch (BadCredentialsException e) {
 			return new LoginStatus(false, null, null);
@@ -68,14 +70,16 @@ public class LoginController {
 		public LoginStatus(boolean loggedIn, String username, MyUser myUser) {
 			this.loggedIn = loggedIn;
 			this.username = username;
-			this.user = new ClientSideUserModel();
 			if(myUser != null){
+				this.user = new ClientSideUserModel();
 				this.user.setFirstName(myUser.getFirstName());
 				this.user.setLastName(myUser.getFamilyName());
 				for(SecurityRoleEntity role: myUser.getSecurityRoleCollection()){
 					this.user.add(role);
 				}
-			}			
+			}else{
+				this.user = null;
+			}
 		}
 
 		public boolean isLoggedIn() {

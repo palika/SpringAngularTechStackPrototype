@@ -4,6 +4,7 @@ import hu.sonrisa.spring.usermanager.dao.MyUserDao;
 import hu.sonrisa.spring.usermanager.dao.SecurityRoleEntityDao;
 import hu.sonrisa.spring.usermanager.domain.MyUser;
 import hu.sonrisa.spring.usermanager.domain.SecurityRoleEntity;
+import hu.sonrisa.spring.usermanager.service.MyUserService;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -22,17 +23,17 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserDetailsServiceImpl implements UserDetailsService {
 
 	@Autowired
-	private MyUserDao myUserDao;
+	private MyUserService myUserService;
 
-	@Autowired
-	private SecurityRoleEntityDao securityRoleEntityDao;
+//	@Autowired
+//	private SecurityRoleEntityDao securityRoleEntityDao;
 
 	@Transactional(readOnly = true)
 	public UserDetails loadUserByUsername(String username)
 			throws UsernameNotFoundException, DataAccessException {
 
 		UserDetails userDetails = null;
-		MyUser myUser = myUserDao.findByName(username);
+		MyUser myUser = myUserService.findByName(username);
 		if (myUser == null) {
 			throw new UsernameNotFoundException("user not found");
 		} else {
@@ -46,25 +47,28 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		for (SecurityRoleEntity role : myUser.getSecurityRoleCollection()) {
 			authorities.add(new GrantedAuthorityImpl(role.getName()));
 		}
-		UserDetails user = new User(myUser.getUsername(), myUser.getPassword(), myUser.getActive(), myUser.getActive(),  myUser.getActive(),  myUser.getActive(), authorities);
+		UserDetails user = new UserDetailsImpl(myUser,myUser.getPassword(), authorities);
+//		UserDetails user = new User(myUser.getUsername(), myUser.getPassword(), myUser.getActive(), myUser.getActive(),  myUser.getActive(),  myUser.getActive(), authorities);
 		return user;
 	}
 
-	public MyUserDao getMyUserDao() {
-		return myUserDao;
+	public MyUserService getMyUserService() {
+		return myUserService;
 	}
 
-	public void setMyUserDao(MyUserDao myUserDao) {
-		this.myUserDao = myUserDao;
+	public void setMyUserService(MyUserService myUserService) {
+		this.myUserService = myUserService;
 	}
 
-	public SecurityRoleEntityDao getSecurityRoleEntityDao() {
-		return securityRoleEntityDao;
-	}
+	
 
-	public void setSecurityRoleEntityDao(
-			SecurityRoleEntityDao securityRoleEntityDao) {
-		this.securityRoleEntityDao = securityRoleEntityDao;
-	}
+//	public SecurityRoleEntityDao getSecurityRoleEntityDao() {
+//		return securityRoleEntityDao;
+//	}
+//
+//	public void setSecurityRoleEntityDao(
+//			SecurityRoleEntityDao securityRoleEntityDao) {
+//		this.securityRoleEntityDao = securityRoleEntityDao;
+//	}
 
 }

@@ -152,35 +152,26 @@
 		</dependency>
 		<!-- These are needed to easily create JSON objects in TestCases -->
 		<dependency>
-	    	<groupId>com.jayway.jsonpath</groupId>
-	    	<artifactId>json-path</artifactId>
-	    	<version>0.8.1</version>
+			<groupId>com.jayway.jsonpath</groupId>
+			<artifactId>json-path</artifactId>
+			<version>0.8.1</version>
 		</dependency>
 		<dependency>
-	    	<groupId>com.jayway.jsonpath</groupId>
-	    	<artifactId>json-path-assert</artifactId>
-	    	<version>0.8.1</version>
+			<groupId>com.jayway.jsonpath</groupId>
+			<artifactId>json-path-assert</artifactId>
+			<version>0.8.1</version>
 		</dependency>
 
 		<!-- Servlet -->
-		<dependency>
+		 <!-- Servlet API 3.0 -->
+        <dependency>
 			<groupId>javax.servlet</groupId>
-			<artifactId>servlet-api</artifactId>
-			<version>2.5</version>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.0.1</version>
 			<scope>provided</scope>
 		</dependency>
-		<dependency>
-			<groupId>javax.servlet.jsp</groupId>
-			<artifactId>jsp-api</artifactId>
-			<version>2.1</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>jstl</artifactId>
-			<version>1.2</version>
-		</dependency>
-		
+
+
 		<!-- TEST -->
 		<dependency>
 			<groupId>junit</groupId>
@@ -194,66 +185,74 @@
 			<version>${org.springframework.version}</version>
 			<scope>test</scope>
 		</dependency>
-		
+		<dependency>
+			<groupId>org.kubek2k</groupId>
+			<artifactId>springockito</artifactId>
+			<version>1.0.9</version>
+			<scope>test</scope>
+		</dependency>
+
 	</dependencies>
 	<build>
-<!-- 		<pluginManagement> -->
-			<plugins>
-				<plugin>
-					<groupId>pl.allegro</groupId>
-					<artifactId>grunt-maven-plugin</artifactId>
-					<version>1.2.0</version>
-					<configuration>
-						<!-- relative to src/main/webapp/, default: static -->
-						<jsSourceDirectory>resources/js</jsSourceDirectory>
-						<gruntBuildDirectory>target/grunt/buildDirectory</gruntBuildDirectory>
-						
+		<!-- <pluginManagement> -->
+		<plugins>
+			<plugin>
+				<groupId>pl.allegro</groupId>
+				<artifactId>grunt-maven-plugin</artifactId>
+				<version>1.2.0</version>
+				<configuration>
+					<!-- relative to src/main/webapp/, default: static -->
+					<jsSourceDirectory>resources/js</jsSourceDirectory>
+					<gruntBuildDirectory>target/grunt/buildDirectory</gruntBuildDirectory>
 
-						<!-- example options usage to get verbose output in logs -->
-						<gruntOptions>
-							<gruntOption>--verbose</gruntOption>
-						</gruntOptions>
 
-						<!-- example options usage to filter variables in given resource -->
-						<!-- <filteredResources> -->
-						<!-- <filteredResource>maven-properties.json</filteredResource> -->
-						<!-- </filteredResources> -->
+					<!-- example options usage to get verbose output in logs -->
+					<gruntOptions>
+						<gruntOption>--verbose</gruntOption>
+					</gruntOptions>
 
-					</configuration>
-					<executions>
-						<execution>
-							<goals>
-								<goal>create-resources</goal><!-- This Goal moves resources to the gruntBuildDirectory folder -->
-								<goal>npm</goal>
-								<goal>grunt</goal><!-- This goal will execute the Grunt tasks in the gruntFile.js-->
-								<goal>clean</goal>
-							</goals>
-						</execution>
-					</executions>
-				</plugin>
-<!-- 			      <plugin> -->
-<!-- 			        <groupId>org.jasig.maven</groupId> -->
-<!-- 			        <artifactId>sass-maven-plugin</artifactId> -->
-<!-- 			        <version>1.1.1</version> -->
-<!-- 			        <configuration> -->
-<!-- 			        </configuration> -->
-<!-- 			        <executions> -->
-<!-- 			        	<execution> -->
-<!-- 				        	<goals> -->
-<!-- 				        		<goal>update-stylesheets</goal> -->
-<!-- 				        	</goals> -->
-<!-- 			        	</execution> -->
-<!-- 			        </executions> -->
-<!-- 			      </plugin> -->
-				<plugin>
-					<artifactId>maven-war-plugin</artifactId>
-					<version>2.3</version>
-					<configuration>
-						<warSourceExcludes>jsSourceDirectory/**</warSourceExcludes>
-					</configuration>
-				</plugin>
-			</plugins>
-<!-- 		</pluginManagement> -->
+					<!-- example options usage to filter variables in given resource -->
+					<!-- <filteredResources> -->
+					<!-- <filteredResource>maven-properties.json</filteredResource> -->
+					<!-- </filteredResources> -->
+
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>create-resources</goal><!-- This Goal moves resources to the 
+								gruntBuildDirectory folder -->
+							<goal>npm</goal>
+							<goal>grunt</goal><!-- This goal will execute the Grunt tasks in the 
+								gruntFile.js -->
+							<goal>clean</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- <plugin> -->
+			<!-- <groupId>org.jasig.maven</groupId> -->
+			<!-- <artifactId>sass-maven-plugin</artifactId> -->
+			<!-- <version>1.1.1</version> -->
+			<!-- <configuration> -->
+			<!-- </configuration> -->
+			<!-- <executions> -->
+			<!-- <execution> -->
+			<!-- <goals> -->
+			<!-- <goal>update-stylesheets</goal> -->
+			<!-- </goals> -->
+			<!-- </execution> -->
+			<!-- </executions> -->
+			<!-- </plugin> -->
+			<plugin>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.3</version>
+				<configuration>
+					<warSourceExcludes>jsSourceDirectory/**</warSourceExcludes>
+				</configuration>
+			</plugin>
+		</plugins>
+		<!-- </pluginManagement> -->
 	</build>
 
 </project>
