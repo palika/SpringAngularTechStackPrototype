@@ -3,7 +3,6 @@ package hu.sonrisa.spring.security.controller;
 import hu.sonrisa.spring.security.login.UserDetailsImpl;
 import hu.sonrisa.spring.usermanager.domain.MyUser;
 import hu.sonrisa.spring.usermanager.domain.SecurityRoleEntity;
-import hu.sonrisa.spring.usermanager.service.MyUserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -26,9 +25,6 @@ public class LoginController {
 	@Qualifier("authenticationManager")
 	AuthenticationManager authenticationManager;
 
-//	@Autowired
-//	MyUserService myUserService;
-
 	@RequestMapping(value = "current-user.json", method = RequestMethod.GET)
 	@ResponseBody
 	public LoginStatus getStatus() {
@@ -36,9 +32,8 @@ public class LoginController {
 				.getAuthentication();
 		if (auth != null && !auth.getName().equals("anonymousUser")
 				&& auth.isAuthenticated()) {
-			MyUser user = ((UserDetailsImpl)auth.getPrincipal()).getMyUser();
-			return new LoginStatus(true, auth.getName(),
-					user);
+			MyUser user = ((UserDetailsImpl) auth.getPrincipal()).getMyUser();
+			return new LoginStatus(true, auth.getName(), user);
 		} else {
 			return new LoginStatus(false, null, null);
 		}
@@ -53,7 +48,7 @@ public class LoginController {
 		try {
 			Authentication auth = authenticationManager.authenticate(token);
 			SecurityContextHolder.getContext().setAuthentication(auth);
-			MyUser user = ((UserDetailsImpl)auth.getPrincipal()).getMyUser();
+			MyUser user = ((UserDetailsImpl) auth.getPrincipal()).getMyUser();
 			return new LoginStatus(auth.isAuthenticated(), user.getUsername(),
 					user);
 		} catch (BadCredentialsException e) {
@@ -70,14 +65,15 @@ public class LoginController {
 		public LoginStatus(boolean loggedIn, String username, MyUser myUser) {
 			this.loggedIn = loggedIn;
 			this.username = username;
-			if(myUser != null){
+			if (myUser != null) {
 				this.user = new ClientSideUserModel();
 				this.user.setFirstName(myUser.getFirstName());
 				this.user.setLastName(myUser.getFamilyName());
-				for(SecurityRoleEntity role: myUser.getSecurityRoleCollection()){
+				for (SecurityRoleEntity role : myUser
+						.getSecurityRoleCollection()) {
 					this.user.add(role);
 				}
-			}else{
+			} else {
 				this.user = null;
 			}
 		}
@@ -93,8 +89,7 @@ public class LoginController {
 		public String getUsername() {
 			return username;
 		}
-		
-		
+
 	}
 
 }
