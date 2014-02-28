@@ -131,7 +131,7 @@ describe('security', function() {
 	      expect(service.currentUser).toBe(userInfo);
 	    });
 	    it("should be admin if we update with admin user info", function() {
-	      var userInfo = { admin: true };
+	      var userInfo = { roles:["ROLE_ADMIN"] };
 	      service.currentUser = userInfo;
 	      expect(service.isAuthenticated()).toBe(true);
 	      expect(service.isAdmin()).toBe(true);
@@ -139,7 +139,7 @@ describe('security', function() {
 	    });
 
 	    it("should not be authenticated or admin if we clear the user", function() {
-	      var userInfo = { admin: true };
+	      var userInfo = { roles:["ROLE_ADMIN"] };
 	      service.currentUser = userInfo;
 	      expect(service.isAuthenticated()).toBe(true);
 	      expect(service.isAdmin()).toBe(true);
